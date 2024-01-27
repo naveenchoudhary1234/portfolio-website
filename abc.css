@@ -1,0 +1,453 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+    font-family: "Be Vietnam Pro",sans-serif;
+}
+#wrapper{
+    height: 100vw;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+.container{
+    width: 1200px;
+    margin: 0 auto;
+}
+.navbar{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 1rem;
+
+}
+.logo{
+    width: 80px;
+}
+.logo-text{
+    margin-left: -1.2rem;
+    font-size: 28px;
+}
+.logo-container{
+    display: flex;
+    justify-content:baseline ;
+    align-items: center;
+}
+.nav-items{
+    display: flex;
+    gap: 2rem;
+    padding: 0 4rem;
+    text-decoration: none;
+
+}
+.nav-items div{
+    font-size: 20px;
+    font-weight: 500;
+    cursor: pointer;
+}
+.nav-items div a{
+    color: black;
+}
+a{
+    text-decoration: none;
+}
+.nav-items div:hover{
+    transition: 0.8s;
+    font-weight:bold;
+}
+.hero-section{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 4rem auto;
+    gap: 5rem;
+    padding: 0 1rem;
+    padding-bottom: 8rem;
+}
+.faded-text{
+    user-select: none;
+    font-size: 7em;
+    color: rgba(231,231,231);
+    bottom: -16%;
+    left: -5%;
+    font-weight: bold;
+    transition: all 3s;
+    position: absolute;
+
+}
+.hero-section-left{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 2rem;
+}
+.hero-section-heading{
+    font-size: 35px;
+    font-weight: 500;
+    color:#343d68;
+}
+.role{
+    color:#4e45d5;
+    font-weight: 800;
+}
+.hero-section-sub-heading{
+    line-height: 45px;
+    font-size: 45px;
+}
+.hero-section-description{
+    margin-top: 1rem;
+    width: 70%;
+    font-weight: 500;
+}
+.hero-section-right{
+    position: relative;
+
+}
+.user-image{
+    padding: 2.5rem;
+    filter: grayscale(1);
+    transition: all 1s;
+    animation: scaleimage 5s linear infinite;
+    object-fit: cover;
+
+}
+@keyframes scaleimage{
+    0%{
+        filter: grayscale(0);
+        transform: scale(1);
+    }
+    50%{
+        transform: scale(1.1);
+        filter: grayscale(1);
+        box-shadow: 1px 1px 5px black;
+    }
+    100%{
+        transform: scale(1);
+        filter: grayscale(0);
+    }
+}
+.btn {
+    background-color: #e84949;
+    width: fit-content;
+    color: white;
+    padding: 0.8rem 2.3rem;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: 700;
+    position: relative;
+    z-index: 1;
+  }
+  
+  .btn::before{
+    content: "";
+    position: absolute;
+    background-color: black;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    
+    z-index: -1;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: 0.5s ease;
+  }
+  
+  .btn:hover{
+    color: #e84949;
+    
+  }
+  
+  .btn:hover::before{
+    transform: scaleX(1);
+  }
+  .project-section{
+    background-color: rgba(231,231,231);
+    margin-top: 4rem;
+  }
+  .page-header{
+    text-align: center;
+    color: #e84949;
+    font-size: 90px;
+    padding-top: 30px;
+  }
+  .project-container{
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 3rem 0;
+    display: flex;
+    flex-direction: column;
+    gap:20px;
+  }
+  .project-card{
+    width: 90%;
+    height:550px;
+
+    background-image: url("https://media.istockphoto.com/id/918555756/photo/car-driving-on-a-road-by-sea.webp?b=1&s=170667a&w=0&k=20&c=BFPTjnXIPXCv3ztbjjCg4iZ76GbiNhXrikDF6PsXOUM=");
+    background-size: cover;
+    background-repeat: no-repeat;
+    position: relative;
+    box-shadow: 0px 0px 40px #1f1f1f;
+
+
+
+  }
+  .project-card::after{
+    content: "";
+    position: absolute;
+    top:0;
+    left: 0;
+    bottom:0;
+    right:0;
+    background-color: #1f1f1f9a;
+    transform: scaleX(1);
+    z-index: 0;
+
+  }
+
+  .project-card::before{
+    content:"";
+    position:absolute;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+    background: linear-gradient(45deg, #343d68, #343d68be, #343d687c);
+    transform:scaleX(0);
+    transform-origin: left;
+    transition: all 0.4s;
+    z-index:1;
+  }
+
+  .project-card:hover::before{
+    transform:scaleX(1);
+  }
+  .project-number{
+    position: absolute;
+    font-size: 200px;
+    font-weight: 600;
+    color: white;
+    z-index: 10;
+    opacity: 0;
+
+  }
+  .project-card:hover .project-number{
+    /* display:block; */
+    opacity: 1;
+  }
+  .project-number-left{
+    right: -40px;
+    top: -45px;
+  }
+  .project-number-right{
+    right: -40px;
+    top: -45px;
+  }
+  .project-content{
+    position:absolute;
+    display:flex;
+    flex-direction:column;
+    color:white;
+    padding:2em;
+    bottom:20%;
+    z-index:5;
+    gap:1em;
+    transition:all 0.4s;
+  }
+
+
+  .project-content-left{ 
+    left:10%;
+  }
+
+  .project-content-right{ 
+    right:10%;
+  }
+
+  .project-skills-container{
+    width:60%;
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+  
+  }
+
+  .project-skill{
+    width:100px;
+  }
+  .project-heading{
+    font-size: 50px;
+    font-weight:bold;
+    line-height: 3rem;
+  }
+  .project-subheading{
+    width: 70%;
+    font-size: 16px;
+    font-style: italic;
+  }
+  .project-card:hover .project-content{
+    transform:scale(1.1);
+  }
+  #project1{
+    background-image: url("https://media.istockphoto.com/id/918555756/photo/car-driving-on-a-road-by-sea.webp?b=1&s=170667a&w=0&k=20&c=BFPTjnXIPXCv3ztbjjCg4iZ76GbiNhXrikDF6PsXOUM=");
+  }
+  #project2{
+    margin-left: 120px;
+    background-image: url("https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8cm95YWxpdHklMjBmcmVlJTIwbXVzaWMlMjBmb3IlMjBpbmRpYXxlbnwwfHwwfHx8MA%3D%3D");
+  }
+  #project3{
+    background-image: url("https://images.unsplash.com/photo-1536152470836-b943b246224c?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8YmFqcmFuZyUyMGJhbGl8ZW58MHx8MHx8fDA%3D");
+  }
+  #project4{
+    margin-left: 120px;
+    background-image: url("https://images.unsplash.com/photo-1486325212027-8081e485255e?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8YnVpbGRpbmdzfGVufDB8fDB8fHww");
+  }
+  .skills-container{
+    position: relative;
+    display: flex;
+    padding: 5rem;
+    margin: 10rem auto;
+    gap:30px;
+  }
+  .skills-container-left{
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+
+  }
+  /* .skill-container-right{
+    display: flex;
+    flex-wrap: wrap; 
+     width: 50%;
+    position: relative;
+    gap: 2rem;
+    justify-content: center;
+  } */
+  .skill-fade-text{
+    position: absolute;
+    user-select: none;
+    font-size: 15em;
+    font-weight: bold;
+    color:rgb(231,231,231);
+    bottom:-34.5%;
+    right:-25%;
+  }
+  .bob-style{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    animation: bob 3s linear infinite;
+    z-index: -5;
+  }
+  @keyframes bob{
+    50%{
+      top:35%;
+      left:76%;
+    }
+  }
+  .skills-logo{
+    width: 120px;
+    transition: 0.9s;
+  }
+  .skills-logo:hover{
+    transform: scale(1.1);
+  }
+  .skill-heading{
+    font-size: 50px;
+    font-style: bold;
+    color: red;
+
+  }
+  .caps{
+    font-size: 90px;
+  }
+  .skill-subheading{
+    font-family: Arial, Helvetica, sans-serif;
+    margin-top: 1rem;
+    width: 80%;
+    text-align: justify;
+    color: #1f1f1f;
+
+  }
+  .skill-subheading p{
+    margin: 15px 0;
+  }
+  .contactus-form-container{
+    width: 100%;
+    background-color: rgb(231,231,231);
+
+  }
+  .formfield-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    margin:2rem 5rem;
+  }
+  .contactus-heading{
+    font-size: 5rem;
+    color: #e84949;
+    padding-top: 2rem;
+
+  }
+  .contactus-subheading{
+    font-size: 3rem;
+    color:#343d68;
+    text-transform: capitalize;
+  }
+  .formfield{
+    width: 100%;
+    height: 42px;
+    padding: 0rem 2rem;
+    font-size: 18px;
+    border-radius: 5px;
+    box-shadow: 2px 2px 10px #1f1f1f;
+    font-weight: 500;
+    border: none;
+    margin-top: 17px;
+  }
+  .formfield-textarea{
+    height: auto;
+    padding-top: 1rem;
+  }
+  #nvn-button{
+    left: 80px;
+    border: none;
+  }
+  footer{
+    position: relative;
+    background-color:#343d68;
+    margin-top: -1px;
+    height: 200px;
+    padding: 1.2rem;
+  }
+  .footer-wrapper{
+    display: flex;
+    gap: 1rem;
+    justify-content:space-between ;
+  }
+  .footer-faded-text{
+    position: absolute;
+    left: 0%;
+    bottom: 0%;
+    color: #535c87;
+    user-select: none;
+    font-size: 5rem;
+  }
+  .link-wrapper{
+    display: flex;
+    gap: 1.2rem;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+  }
+a{
+  text-decoration: none;
+  color: aliceblue;
+  
+}
+a:hover{
+  color: #1f1f1f;
+}
+
