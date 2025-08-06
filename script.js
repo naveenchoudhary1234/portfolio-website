@@ -106,45 +106,78 @@ window.addEventListener('scroll', () => {
 // Contact Form
 const contactForm = document.getElementById('contact-form');
 
-contactForm.addEventListener('submit', (e) => {
-    e.preventDefault();
+// contactForm.addEventListener('submit', (e) => {
+//     // e.preventDefault();
     
+//     // Get form data
+//     const formData = new FormData(contactForm);
+//     const name = formData.get('name');
+//     const email = formData.get('email');
+//     const subject = formData.get('subject');
+//     const message = formData.get('message');
+    
+//     // Simple validation
+//     if (!name || !email || !subject || !message) {
+//         alert('Please fill in all fields');
+//         return;
+//     }
+    
+//     // Email validation
+//     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+//     if (!emailRegex.test(email)) {
+//         alert('Please enter a valid email address');
+//         return;
+//     }
+    
+//     // Simulate form submission
+//     const submitBtn = contactForm.querySelector('.submit-btn');
+//     const originalText = submitBtn.textContent;
+    
+//     submitBtn.textContent = 'Sending...';
+//     submitBtn.disabled = true;
+    
+//     setTimeout(() => {
+//         alert('Thank you for your message! I\'ll get back to you soon.');
+//         contactForm.reset();
+//         submitBtn.textContent = originalText;
+//         submitBtn.disabled = false;
+//     }, 2000);
+// });
+
+// Add animation classes on scroll
+contactForm.addEventListener('submit', (e) => {
     // Get form data
     const formData = new FormData(contactForm);
     const name = formData.get('name');
     const email = formData.get('email');
     const subject = formData.get('subject');
     const message = formData.get('message');
-    
+
     // Simple validation
     if (!name || !email || !subject || !message) {
+        e.preventDefault(); // ❗ Only prevent submission if validation fails
         alert('Please fill in all fields');
         return;
     }
-    
+
     // Email validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
+        e.preventDefault(); // ❗ Stop form if invalid email
         alert('Please enter a valid email address');
         return;
     }
-    
-    // Simulate form submission
+
+    // Optional: Add loading state
     const submitBtn = contactForm.querySelector('.submit-btn');
-    const originalText = submitBtn.textContent;
-    
     submitBtn.textContent = 'Sending...';
     submitBtn.disabled = true;
-    
-    setTimeout(() => {
-        alert('Thank you for your message! I\'ll get back to you soon.');
-        contactForm.reset();
-        submitBtn.textContent = originalText;
-        submitBtn.disabled = false;
-    }, 2000);
+
+    // ✅ Do NOT prevent form submission — let FormSubmit send it
+    // After submission, user will be redirected to _next page
 });
 
-// Add animation classes on scroll
+
 const observerOptions = {
     threshold: 0.1,
     rootMargin: '0px 0px -50px 0px'
