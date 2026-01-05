@@ -7,6 +7,337 @@
     <link rel="stylesheet" href="index.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 10000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.9);
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            margin: 2% auto;
+            padding: 0;
+            border: 1px solid rgba(74, 144, 226, 0.3);
+            border-radius: 20px;
+            width: 90%;
+            max-width: 1200px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            animation: slideDown 0.4s ease;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .close-modal {
+            color: #aaa;
+            float: right;
+            font-size: 40px;
+            font-weight: bold;
+            padding: 20px 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .close-modal:hover,
+        .close-modal:focus {
+            color: #4A90E2;
+            transform: rotate(90deg);
+        }
+
+        .modal-body {
+            padding: 40px 50px;
+            clear: both;
+        }
+
+        .modal-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #4A90E2, #E24A90);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .modal-description {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 40px;
+            text-align: justify;
+        }
+
+        .modal-section {
+            margin-bottom: 40px;
+        }
+
+        .modal-section-title {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: #4A90E2;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid rgba(74, 144, 226, 0.3);
+        }
+
+        .screenshots-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .screenshot-item {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .screenshot-item:hover {
+            transform: scale(1.05);
+        }
+
+        .screenshot-item img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .benefits-list {
+            list-style: none;
+            padding: 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 15px;
+        }
+
+        .benefits-list li {
+            padding: 15px 20px;
+            background: rgba(74, 144, 226, 0.1);
+            border-left: 4px solid #4A90E2;
+            border-radius: 8px;
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .benefits-list li:hover {
+            background: rgba(74, 144, 226, 0.2);
+            transform: translateX(10px);
+        }
+
+        .benefits-list li i {
+            color: #4A90E2;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        .modal-tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .modal-tech-tags .tech-tag {
+            padding: 10px 20px;
+            background: rgba(74, 144, 226, 0.15);
+            border: 1px solid rgba(74, 144, 226, 0.3);
+            border-radius: 25px;
+            color: #4A90E2;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .modal-tech-tags .tech-tag:hover {
+            background: rgba(74, 144, 226, 0.3);
+            transform: translateY(-3px);
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 20px;
+            margin-top: 40px;
+            flex-wrap: wrap;
+        }
+
+        .modal-btn {
+            padding: 15px 40px;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .github-btn {
+            background: linear-gradient(135deg, #333, #555);
+            color: white;
+        }
+
+        .github-btn:hover {
+            background: linear-gradient(135deg, #555, #777);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .live-btn {
+            background: linear-gradient(135deg, #4A90E2, #357ABD);
+            color: white;
+        }
+
+        .live-btn:hover {
+            background: linear-gradient(135deg, #357ABD, #2868A8);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(74, 144, 226, 0.4);
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .modal-content {
+                width: 95%;
+                margin: 5% auto;
+            }
+
+            .modal-body {
+                padding: 30px 20px;
+            }
+
+            .modal-title {
+                font-size: 1.8rem;
+            }
+
+            .modal-description {
+                font-size: 1rem;
+            }
+
+            .modal-section-title {
+                font-size: 1.4rem;
+            }
+
+            .screenshots-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .benefits-list {
+                grid-template-columns: 1fr;
+            }
+
+            .modal-actions {
+                flex-direction: column;
+            }
+
+            .modal-btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
+        /* Custom scrollbar for modal */
+        .modal-content::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        .modal-content::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+        }
+
+        .modal-content::-webkit-scrollbar-thumb {
+            background: #4A90E2;
+            border-radius: 10px;
+        }
+
+        .modal-content::-webkit-scrollbar-thumb:hover {
+            background: #357ABD;
+        }
+
+        /* Enhanced project card cursor */
+        .project-card[data-project] {
+            cursor: pointer;
+        }
+
+        /* Toast Notification Styles */
+        .toast-notification {
+            position: fixed;
+            bottom: -100px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, #4A90E2, #357ABD);
+            color: white;
+            padding: 18px 30px;
+            border-radius: 50px;
+            box-shadow: 0 10px 40px rgba(74, 144, 226, 0.4);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-size: 1rem;
+            font-weight: 600;
+            z-index: 10001;
+            transition: bottom 0.3s ease, opacity 0.3s ease;
+            opacity: 0;
+        }
+
+        .toast-notification.show {
+            bottom: 30px;
+            opacity: 1;
+        }
+
+        .toast-notification i {
+            font-size: 1.3rem;
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.2);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .toast-notification {
+                width: 90%;
+                padding: 15px 20px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
 </head>
 <body>
     <!-- Navigation -->
@@ -53,7 +384,7 @@
                 <div class="hero-image">
                     <div class="image-container">
                         <div class="image-border">
-                            <img src="images/Naveen-photo.jpg" alt="Naveen Choudhary" class="profile-image">
+                            <img src="c:\Users\ASUS\OneDrive\Desktop\Naveen Photo.jpg" alt="Naveen Choudhary" class="profile-image">
                         </div>
                         <div class="wave-emoji">👋</div>
                     </div>
@@ -77,38 +408,40 @@
             </div>
             
             <div class="projects-grid">
-                <!-- Project 1 - Shopping Hub -->
-                <div class="project-card">
+                <!-- Project 1 - ParkEasy -->
+                <div class="project-card" data-project="parkeasy">
                     <div class="project-number">01</div>
                     <div class="project-content">
                         <div class="project-links">
                             <a href="#" class="project-link" target="_blank">
                                 <i class="fas fa-external-link-alt"></i>
                             </a>
-                            <a href="https://github.com/naveenchoudhary1234" class="project-link" target="_blank">
+                            <a href="https://github.com/naveenchoudhary1234/ParkingSystem" class="project-link" target="_blank">
                                 <i class="fab fa-github"></i>
                             </a>
                         </div>
-                        <h3 class="project-title">Shopping Hub</h3>
+                        <h3 class="project-title">ParkEasy</h3>
                         <p class="project-description">
-                            A comprehensive e-commerce platform built with vanilla JavaScript, featuring dynamic product catalog, 
-                            advanced search & filtering, shopping cart with local storage, user authentication system, 
-                            responsive design with CSS Grid & Flexbox, and smooth animations. Implements modern ES6+ features 
-                            and follows best practices for performance optimization.
+                            An intelligent parking management system that revolutionizes urban parking. Features real-time parking 
+                            slot availability tracking, automated booking system, IoT sensor integration for live updates, 
+                            digital payment integration, QR code-based entry/exit, admin dashboard for parking management, 
+                            mobile-responsive interface, and analytics for parking utilization. Reduces parking search time 
+                            and optimizes parking space usage with smart algorithms.
                         </p>
                         <div class="project-tech">
-                            <span class="tech-tag">HTML5</span>
-                            <span class="tech-tag">CSS3</span>
-                            <span class="tech-tag">JavaScript ES6+</span>
-                            <span class="tech-tag">Local Storage</span>
-                            <span class="tech-tag">Responsive Design</span>
+                            <span class="tech-tag">React.js</span>
+                            <span class="tech-tag">Node.js</span>
+                            <span class="tech-tag">MongoDB</span>
+                            <span class="tech-tag">IoT Integration</span>
+                            <span class="tech-tag">Payment Gateway</span>
+                            <span class="tech-tag">Real-time Updates</span>
                         </div>
-                        <button class="read-more-btn">Read More →</button>
+                        <button class="read-more-btn" onclick="openProjectModal('parkeasy')">Read More →</button>
                     </div>
                 </div>
 
                 <!-- Project 2 - StudyNotion -->
-                <div class="project-card">
+                <div class="project-card" data-project="studynotion">
                     <div class="project-number">02</div>
                     <div class="project-content">
                         <div class="project-links">
@@ -134,12 +467,12 @@
                             <span class="tech-tag">Razorpay API</span>
                             <span class="tech-tag">JWT Auth</span>
                         </div>
-                        <button class="read-more-btn">Read More →</button>
+                        <button class="read-more-btn" onclick="openProjectModal('studynotion')">Read More →</button>
                     </div>
                 </div>
 
                 <!-- Project 3 - Donation Website -->
-                <div class="project-card">
+                <div class="project-card" data-project="donation">
                     <div class="project-number">03</div>
                     <div class="project-content">
                         <div class="project-links">
@@ -165,44 +498,87 @@
                             <span class="tech-tag">Email API</span>
                             <span class="tech-tag">Security</span>
                         </div>
-                        <button class="read-more-btn">Read More →</button>
+                        <button class="read-more-btn" onclick="openProjectModal('donation')">Read More →</button>
                     </div>
                 </div>
 
-                <!-- Project 4 - Razorpay Clone -->
-                <div class="project-card">
+                <!-- Project 4 - Shopping Hub -->
+                <div class="project-card" data-project="shoppinghub">
                     <div class="project-number">04</div>
                     <div class="project-content">
                         <div class="project-links">
                             <a href="#" class="project-link" target="_blank">
                                 <i class="fas fa-external-link-alt"></i>
                             </a>
-                            <a href="https://github.com/naveenchoudhary1234" class="project-link" target="_blank">
+                            <a href="https://github.com/naveenchoudhary1234/Shopping-Hub" class="project-link" target="_blank">
                                 <i class="fab fa-github"></i>
                             </a>
                         </div>
-                        <h3 class="project-title">Razorpay Clone</h3>
+                        <h3 class="project-title">Shopping Hub</h3>
                         <p class="project-description">
-                            A pixel-perfect clone of Razorpay's landing page showcasing advanced frontend skills. Features 
-                            responsive design with Tailwind CSS, smooth scroll animations, interactive hover effects, 
-                            modern UI components, optimized performance, cross-browser compatibility, and mobile-first approach. 
-                            Demonstrates mastery of modern CSS frameworks and JavaScript animations.
+                            A comprehensive e-commerce platform built with modern web technologies. Features dynamic product catalog 
+                            with advanced search and filtering, interactive shopping cart with real-time updates, wishlist functionality, 
+                            user authentication and profile management, order history tracking, localStorage for cart persistence, 
+                            fully responsive design with CSS Grid & Flexbox, smooth animations and transitions, and optimized performance. 
+                            Implements modern ES6+ JavaScript features and best practices for scalable frontend architecture.
                         </p>
                         <div class="project-tech">
                             <span class="tech-tag">HTML5</span>
-                            <span class="tech-tag">Tailwind CSS</span>
-                            <span class="tech-tag">JavaScript</span>
-                            <span class="tech-tag">GSAP Animations</span>
-                            <span class="tech-tag">Responsive</span>
-                            <span class="tech-tag">Performance</span>
+                            <span class="tech-tag">CSS3</span>
+                            <span class="tech-tag">JavaScript ES6+</span>
+                            <span class="tech-tag">Local Storage</span>
+                            <span class="tech-tag">Responsive UI</span>
+                            <span class="tech-tag">REST API</span>
                         </div>
-                        <button class="read-more-btn">Read More →</button>
+                        <button class="read-more-btn" onclick="openProjectModal('shoppinghub')">Read More →</button>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- Project Details Modal -->
+    <div id="projectModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" id="closeModalBtn">&times;</span>
+            <div class="modal-body">
+                <h2 class="modal-title" id="modalTitle"></h2>
+                <p class="modal-description" id="modalDescription"></p>
+                
+                <div class="modal-section">
+                    <h3 class="modal-section-title">Project Screenshots</h3>
+                    <div class="screenshots-grid" id="modalScreenshots">
+                        <!-- Screenshots will be dynamically inserted here -->
+                    </div>
+                </div>
+                
+                <div class="modal-section">
+                    <h3 class="modal-section-title">Key Benefits</h3>
+                    <ul class="benefits-list" id="modalBenefits">
+                        <!-- Benefits will be dynamically inserted here -->
+                    </ul>
+                </div>
+                
+                <div class="modal-section">
+                    <h3 class="modal-section-title">Technologies Used</h3>
+                    <div class="modal-tech-tags" id="modalTech">
+                        <!-- Tech tags will be dynamically inserted here -->
+                    </div>
+                </div>
+                
+                <div class="modal-actions">
+                    <a id="modalGithubLink" href="#" target="_blank" class="modal-btn github-btn">
+                        <i class="fab fa-github"></i> View on GitHub
+                    </a>
+                    <a id="modalLiveLink" href="#" target="_blank" class="modal-btn live-btn">
+                        <i class="fas fa-external-link-alt"></i> Live Demo
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 
     <!-- Skills Section -->
     <section id="skills" class="skills">
         <div class="container">
@@ -498,38 +874,34 @@
     </section>
 
     <!-- Contact Section -->
-<section id="contact" class="contact">
-    <div class="container">
-        <div class="section-header">
-            <h2 class="section-title">Contact Me</h2>
-            <p class="section-description">
-                Questions, thoughts, or just want to say hello?
-            </p>
-        </div>
-        
-        <div class="contact-form-container">
- <form action="https://formsubmit.co/3cc36c16b0d9fb0b43bbf1fe9cf6eeea" method="POST" class="contact-form" id="contact-form">
+    <section id="contact" class="contact">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Contact Me</h2>
+                <p class="section-description">
+                    Questions, thoughts, or just want to say hello?
+                </p>
+            </div>
+            
+            <div class="contact-form-container">
+                <form action="https://formsubmit.co/choudharynaveen540@gmail.com" method="POST" class="contact-form" id="contact-form">
     <input type="hidden" name="_captcha" value="false">
     <input type="hidden" name="_template" value="table">
-    <input type="hidden" name="_autoresponse" value="Thanks for reaching out, Naveen has received your message and will respond soon!">
-    <input type="hidden" name="_subject" value="New Contact Message from Portfolio">
-    <input type="hidden" name="_next" value="https://naveenchoudhary.netlify.app/thankyou.html">
-
+    
     <div class="form-row">
         <input type="text" name="name" placeholder="Enter your name" class="form-input" required>
         <input type="email" name="email" placeholder="Enter your email" class="form-input" required>
     </div>
-
+    
     <input type="text" name="subject" placeholder="Enter your subject" class="form-input" required>
     <textarea name="message" placeholder="Enter your message" class="form-textarea" rows="6" required></textarea>
-
+    
     <button type="submit" class="submit-btn">Send Message</button>
 </form>
 
-
+            </div>
         </div>
-    </div>
-</section>
+    </section>
 
     <!-- Footer -->
     <footer class="footer">
@@ -561,10 +933,439 @@
         </div>
     </footer>
 
-    <script src="script.js"></script>
+    <script>
 
-        
+        // Typing Animation
+const typingText = document.getElementById('typing-text');
+const roles = [
+    'Full Stack Developer',
+    'MERN Stack Developer',
+    'React.js Developer',
+    'Backend Developer',
+    'Software Engineer',
+    'Web Developer'
+];
+
+let roleIndex = 0;
+let charIndex = 0;
+let isDeleting = false;
+
+function typeRole() {
+    const currentRole = roles[roleIndex];
+    
+    if (isDeleting) {
+        typingText.textContent = currentRole.substring(0, charIndex - 1);
+        charIndex--;
+    } else {
+        typingText.textContent = currentRole.substring(0, charIndex + 1);
+        charIndex++;
+    }
+    
+    let typeSpeed = isDeleting ? 50 : 100;
+    
+    if (!isDeleting && charIndex === currentRole.length) {
+        typeSpeed = 2000;
+        isDeleting = true;
+    } else if (isDeleting && charIndex === 0) {
+        isDeleting = false;
+        roleIndex = (roleIndex + 1) % roles.length;
+        typeSpeed = 500;
+    }
+    
+    setTimeout(typeRole, typeSpeed);
+}
+
+// Start typing animation
+typeRole();
+
+// Mobile Navigation
+const hamburger = document.getElementById('hamburger');
+const navMenu = document.getElementById('nav-menu');
+
+hamburger.addEventListener('click', () => {
+    navMenu.classList.toggle('active');
+});
+
+// Close mobile menu when clicking on a link
+document.querySelectorAll('.nav-link').forEach(link => {
+    link.addEventListener('click', () => {
+        navMenu.classList.remove('active');
+    });
+});
+
+// Smooth scrolling for navigation links
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        const href = this.getAttribute('href');
+        // Only handle internal anchor links
+        if (href && href.startsWith('#') && href.length > 1) {
+            e.preventDefault();
+            const target = document.querySelector(href);
+            if (target) {
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        }
+    });
+});
+
+// Skills Animation
+const skillsSection = document.getElementById('skills');
+const skillBars = document.querySelectorAll('.skill-progress');
+let skillsAnimated = false;
+
+function animateSkills() {
+    skillBars.forEach(bar => {
+        const width = bar.getAttribute('data-width');
+        bar.style.width = width + '%';
+    });
+    skillsAnimated = true;
+}
+
+// Intersection Observer for skills animation
+const skillsObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting && !skillsAnimated) {
+            animateSkills();
+        }
+    });
+}, { threshold: 0.5 });
+
+skillsObserver.observe(skillsSection);
+
+// Navbar background on scroll
+window.addEventListener('scroll', () => {
+    const navbar = document.querySelector('.navbar');
+    if (window.scrollY > 100) {
+        navbar.style.background = 'rgba(0, 0, 0, 0.9)';
+    } else {
+        navbar.style.background = 'rgba(0, 0, 0, 0.2)';
+    }
+});
+
+// Contact Form
+const contactForm = document.getElementById('contact-form');
+
+contactForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    
+    // Get form data
+    const formData = new FormData(contactForm);
+    const name = formData.get('name');
+    const email = formData.get('email');
+    const subject = formData.get('subject');
+    const message = formData.get('message');
+    
+    // Simple validation
+    if (!name || !email || !subject || !message) {
+        alert('Please fill in all fields');
+        return;
+    }
+    
+    // Email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+        alert('Please enter a valid email address');
+        return;
+    }
+    
+    // Simulate form submission
+    const submitBtn = contactForm.querySelector('.submit-btn');
+    const originalText = submitBtn.textContent;
+    
+    submitBtn.textContent = 'Sending...';
+    submitBtn.disabled = true;
+    
+    setTimeout(() => {
+        alert('Thank you for your message! I\'ll get back to you soon.');
+        contactForm.reset();
+        submitBtn.textContent = originalText;
+        submitBtn.disabled = false;
+    }, 2000);
+});
+
+
+const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+};
+
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.style.opacity = '1';
+            entry.target.style.transform = 'translateY(0)';
+        }
+    });
+}, observerOptions);
+
+document.querySelectorAll('section').forEach(section => {
+    section.style.opacity = '0';
+    section.style.transform = 'translateY(30px)';
+    section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+    observer.observe(section);
+});
+
+// Project Modal Functionality
+const projectData = {
+    parkeasy: {
+        title: 'ParkEasy - Smart Parking Management System',
+        description: 'ParkEasy is an intelligent parking management solution that transforms the traditional parking experience into a seamless, technology-driven process. The system integrates IoT sensors with a robust web application to provide real-time parking availability, automated booking, and digital payment processing. Users can search for available parking spots nearby, book slots in advance, and access parking facilities using QR codes. The admin dashboard provides comprehensive analytics on parking utilization, revenue tracking, and system performance. Built with scalability in mind, ParkEasy reduces parking search time by up to 70% and optimizes parking space utilization.',
+        screenshots: [
+            'https://via.placeholder.com/800x450/4A90E2/ffffff?text=ParkEasy+Dashboard',
+            'https://via.placeholder.com/800x450/E24A90/ffffff?text=Booking+Interface',
+            'https://via.placeholder.com/800x450/90E24A/ffffff?text=Real-time+Availability'
+        ],
+        benefits: [
+            'Real-time parking slot availability with IoT sensor integration',
+            'Automated booking system with instant confirmation',
+            'QR code-based contactless entry and exit',
+            'Integrated payment gateway for seamless transactions',
+            'Admin dashboard with analytics and reporting',
+            'Mobile-responsive design for on-the-go access',
+            'Reduces parking search time by up to 70%',
+            'Email and SMS notifications for booking updates',
+            'Multi-location parking management support',
+            'Historical data analysis for parking patterns'
+        ],
+        tech: ['React.js', 'Node.js', 'Express.js', 'MongoDB', 'IoT Integration', 'Payment Gateway', 'Socket.io', 'JWT Auth', 'QR Code API', 'Responsive Design'],
+        github: 'https://github.com/naveenchoudhary1234/ParkingSystem',
+        live: 'https://www.linkedin.com/posts/naveen-choudhary-42ba282b2_fullstackdevelopment-systemdesign-realworldprojects-activity-7408142910925504512-lyh7?utm_source=share&utm_medium=member_desktop&rcm=ACoAAEtCMmMB-oZ3tYsDgHzM_cvQpr7xGOeu-rc'
+    },
+    studynotion: {
+        title: 'StudyNotion - EdTech Learning Platform',
+        description: 'StudyNotion is a comprehensive EdTech platform designed to bridge the gap between instructors and students. The platform features a dual-role architecture allowing instructors to create, manage, and monetize courses while students can browse, purchase, and learn from a vast catalog of educational content. Key features include video streaming with progress tracking, secure payment processing through Razorpay integration, JWT-based authentication for security, real-time notifications system, comprehensive dashboards for both roles, course rating and review system, and advanced search and filtering. Built using the MERN stack, the platform ensures scalability, performance, and an exceptional user experience.',
+        screenshots: [
+            'https://via.placeholder.com/800x450/9B59B6/ffffff?text=StudyNotion+Dashboard',
+            'https://via.placeholder.com/800x450/3498DB/ffffff?text=Course+Catalog',
+            'https://via.placeholder.com/800x450/E74C3C/ffffff?text=Video+Player'
+        ],
+        benefits: [
+            'Dual role architecture for instructors and students',
+            'Comprehensive course creation and management tools',
+            'Video streaming with progress tracking',
+            'Secure payment integration with Razorpay',
+            'JWT authentication for enhanced security',
+            'Real-time notifications for updates',
+            'Interactive student dashboard with course progress',
+            'Instructor analytics and revenue tracking',
+            'Course rating and review system',
+            'Responsive design for all devices'
+        ],
+        tech: ['React.js', 'Node.js', 'Express.js', 'MongoDB', 'Razorpay API', 'JWT Auth', 'Redux', 'Cloudinary', 'Nodemailer', 'REST API'],
+        github: 'https://github.com/naveenchoudhary1234',
+        live: 'https://www.linkedin.com/posts/naveen-choudhary-42ba282b2_fullstackdeveloper-reactjs-mongodb-activity-7324329978538450944-x4YU?utm_source=share&utm_medium=member_desktop&rcm=ACoAAEtCMmMB-oZ3tYsDgHzM_cvQpr7xGOeu-rc'
+    },
+    donation: {
+        title: 'Donation Website - Charitable Platform',
+        description: 'A powerful charitable donation platform that makes giving back easier and more transparent. The platform connects donors with various charitable causes, enabling seamless contributions through secure payment gateways. Features include comprehensive cause management, donor profiles with donation history, real-time donation tracking, automated email notifications, admin dashboard for managing causes and donations, transparent fund allocation reporting, and robust security measures for financial transactions. The platform implements data encryption, secure authentication, and follows best practices for handling sensitive financial information. Built with React.js frontend and Express.js backend with MySQL database for reliable data management.',
+        screenshots: [
+            'https://via.placeholder.com/800x450/27AE60/ffffff?text=Donation+Home',
+            'https://via.placeholder.com/800x450/F39C12/ffffff?text=Causes+List',
+            'https://via.placeholder.com/800x450/E67E22/ffffff?text=Donation+Form'
+        ],
+        benefits: [
+            'Secure payment gateway integration',
+            'Real-time donation tracking and updates',
+            'Comprehensive cause management system',
+            'Donor profiles with donation history',
+            'Automated email notifications',
+            'Transparent fund allocation reports',
+            'Admin dashboard with analytics',
+            'Data encryption for financial security',
+            'Multiple payment methods support',
+            'Tax receipt generation'
+        ],
+        tech: ['React.js', 'Express.js', 'MySQL', 'Payment Gateway', 'Email API', 'JWT Auth', 'Encryption', 'Redux', 'Chart.js', 'PDF Generation'],
+        github: 'https://github.com/naveenchoudhary1234',
+        live: 'https://www.linkedin.com/posts/naveen-choudhary-42ba282b2_fullstackdevelopment-webdevelopment-donationwebsite-activity-7358540180548382721-u9Cb?utm_source=share&utm_medium=member_desktop&rcm=ACoAAEtCMmMB-oZ3tYsDgHzM_cvQpr7xGOeu-rc'
+    },
+    shoppinghub: {
+        title: 'Shopping Hub - Modern E-Commerce Platform',
+        description: 'Shopping Hub is a feature-rich e-commerce platform that delivers a smooth and intuitive shopping experience. The application features a dynamic product catalog with advanced filtering options, allowing users to easily find products by category, price range, ratings, and more. The shopping cart system uses localStorage for persistence, ensuring users never lose their selections. The wishlist feature helps users save items for later purchase. Built with vanilla JavaScript and modern ES6+ features, the platform demonstrates clean architecture and efficient state management. The responsive design ensures a consistent experience across all devices, while smooth animations enhance user engagement.',
+        screenshots: [
+            'https://via.placeholder.com/800x450/FF6B6B/ffffff?text=Shopping+Hub+Home',
+            'https://via.placeholder.com/800x450/4ECDC4/ffffff?text=Product+Catalog',
+            'https://via.placeholder.com/800x450/FFE66D/000000?text=Shopping+Cart'
+        ],
+        benefits: [
+            'Dynamic product catalog with real-time search and filtering',
+            'Interactive shopping cart with instant updates',
+            'Wishlist functionality to save favorite products',
+            'localStorage integration for cart persistence',
+            'User authentication with secure session management',
+            'Order history and tracking system',
+            'Fully responsive design optimized for all devices',
+            'Smooth animations and intuitive UI/UX',
+            'Fast loading times with optimized performance',
+            'Clean code architecture following best practices'
+        ],
+        tech: ['HTML5', 'CSS3', 'JavaScript ES6+', 'Local Storage', 'CSS Grid', 'Flexbox', 'Responsive Design', 'REST API', 'JSON', 'DOM Manipulation'],
+        github: 'https://github.com/naveenchoudhary1234/Shopping-Hub',
+        live: 'coming-soon'
+    }
+};
+
+function openProjectModal(projectKey) {
+    const modal = document.getElementById('projectModal');
+    const project = projectData[projectKey];
+    
+    if (!project) return;
+    
+    // Update modal content
+    document.getElementById('modalTitle').textContent = project.title;
+    document.getElementById('modalDescription').textContent = project.description;
+    
+    // Update screenshots
+    const screenshotsContainer = document.getElementById('modalScreenshots');
+    screenshotsContainer.innerHTML = project.screenshots.map(img => 
+        `<div class="screenshot-item">
+            <img src="${img}" alt="Project Screenshot" />
+        </div>`
+    ).join('');
+    
+    // Update benefits
+    const benefitsContainer = document.getElementById('modalBenefits');
+    benefitsContainer.innerHTML = project.benefits.map(benefit => 
+        `<li><i class="fas fa-check-circle"></i> ${benefit}</li>`
+    ).join('');
+    
+    // Update tech tags
+    const techContainer = document.getElementById('modalTech');
+    techContainer.innerHTML = project.tech.map(tech => 
+        `<span class="tech-tag">${tech}</span>`
+    ).join('');
+    
+    // Update links
+    document.getElementById('modalGithubLink').href = project.github;
+    const liveLinkBtn = document.getElementById('modalLiveLink');
+    if (project.live === 'coming-soon') {
+        liveLinkBtn.href = '#';
+        liveLinkBtn.onclick = function(e) {
+            e.preventDefault();
+            showToast('Coming Soon! This demo will be available very soon.');
+        };
+    } else {
+        liveLinkBtn.href = project.live;
+        liveLinkBtn.onclick = null;
+    }
+    
+    // Show modal
+    modal.style.display = 'block';
+    document.body.style.overflow = 'hidden';
+}
+
+function closeProjectModal() {
+    const modal = document.getElementById('projectModal');
+    modal.style.display = 'none';
+    document.body.style.overflow = 'auto';
+}
+
+// Close modal when clicking outside
+window.onclick = function(event) {
+    const modal = document.getElementById('projectModal');
+    if (event.target === modal) {
+        closeProjectModal();
+    }
+}
+
+// Close modal with Escape key
+document.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape') {
+        closeProjectModal();
+    }
+});
+
+// Add click event to project cards
+document.querySelectorAll('.project-card[data-project]').forEach(card => {
+    card.addEventListener('click', function(e) {
+        // Don't open modal if clicking on links
+        if (e.target.closest('.project-link')) {
+            return;
+        }
+        const projectKey = this.getAttribute('data-project');
+        if (projectKey) {
+            openProjectModal(projectKey);
+        }
+    });
+});
+
+// Add click event to close modal button
+document.getElementById('closeModalBtn').addEventListener('click', closeProjectModal);
+
+// Toast notification function
+function showToast(message) {
+    // Remove existing toast if any
+    const existingToast = document.querySelector('.toast-notification');
+    if (existingToast) {
+        existingToast.remove();
+    }
+    
+    // Create toast element
+    const toast = document.createElement('div');
+    toast.className = 'toast-notification';
+    toast.innerHTML = `
+        <i class="fas fa-clock"></i>
+        <span>${message}</span>
+    `;
+    document.body.appendChild(toast);
+    
+    // Show toast with animation
+    setTimeout(() => {
+        toast.classList.add('show');
+    }, 100);
+    
+    // Hide and remove toast after 3 seconds
+    setTimeout(() => {
+        toast.classList.remove('show');
+        setTimeout(() => {
+            toast.remove();
+        }, 300);
+    }, 3000);
+}
+
+// Project cards hover effect
+document.querySelectorAll('.project-card').forEach(card => {
+    card.addEventListener('mouseenter', () => {
+        card.style.transform = 'translateY(-10px) scale(1.02)';
+    });
+    
+    card.addEventListener('mouseleave', () => {
+        card.style.transform = 'translateY(0) scale(1)';
+    });
+});
+
+// Add animation for subject cards
+const subjectCards = document.querySelectorAll('.subject-card');
+const subjectsObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry, index) => {
+        if (entry.isIntersecting) {
+            setTimeout(() => {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+            }, index * 100);
+        }
+    });
+}, { threshold: 0.1 });
+
+subjectCards.forEach(card => {
+    card.style.opacity = '0';
+    card.style.transform = 'translateY(30px)';
+    card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+    subjectsObserver.observe(card);
+});
+
+// Add loading animation
+window.addEventListener('load', () => {
+    document.body.style.opacity = '1';
+});
+
+// Initialize page
+document.body.style.opacity = '0';
+document.body.style.transition = 'opacity 0.5s ease';
 
     </script>
 </body>
-</html>
+</html> 
